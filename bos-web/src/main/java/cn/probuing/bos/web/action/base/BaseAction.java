@@ -12,7 +12,9 @@ import java.lang.reflect.Type;
  * @Description:
  */
 public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
-    private T model;
+    protected static final String HOME = "home";
+
+    protected T model;
 
     public BaseAction() {
         ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();

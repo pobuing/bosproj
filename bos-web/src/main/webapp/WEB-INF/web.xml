@@ -4,16 +4,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <display-name>bos-web</display-name>
-
-    <!--spring listener-->
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-    <!--spring 配置文件位置-->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:applicationContext.xml</param-value>
-    </context-param>
     <!--扩大session-->
     <filter>
         <filter-name>openSessionInView</filter-name>
@@ -23,6 +13,17 @@
         <filter-name>openSessionInView</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <!--spring 配置文件位置-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <!--spring listener-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+
 
     <!--struts2核心过滤器-->
     <filter>
@@ -32,5 +33,7 @@
     <filter-mapping>
         <filter-name>struts2</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
 </web-app>
