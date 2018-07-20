@@ -1,6 +1,8 @@
 package cn.probuing.bos.dao.base.impl;
 
 import cn.probuing.bos.dao.base.IBaseDao;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
@@ -53,5 +55,16 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
     public List<T> findAll() {
         String hql = "FROM" + entityClass.getSimpleName();
         return (List<T>) this.getHibernateTemplate().find(hql);
+    }
+
+    @Override
+    public void executeUpdate(String queryName, Object... objects) {
+        Session session = this.getSessionFactory().getCurrentSession();
+        Query query = session.getNamedQuery(queryName);
+        for (int i = 0; i < objects.length; i++) {
+            query.setParameter(i, objects[i]);
+        }
+        //执行更新
+        query.executeUpdate();
     }
 }

@@ -2,6 +2,7 @@ package cn.probuing.bos.web.action;
 
 import cn.probuing.bos.domain.User;
 import cn.probuing.bos.service.IUserService;
+import cn.probuing.bos.utils.BOSUtils;
 import cn.probuing.bos.web.action.base.BaseAction;
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.commons.lang.StringUtils;
@@ -10,6 +11,8 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
+import java.io.IOException;
 
 /**
  * @Auther: wxblack-mac
@@ -60,5 +63,28 @@ public class UserAction extends BaseAction<User> {
     public String logOut() {
         ServletActionContext.getRequest().getSession().invalidate();
         return LOGIN;
+    }
+
+
+    /**
+     * 修改用户密码
+     *
+     * @return
+     */
+    public String editPassword() throws IOException {
+        //获取当前登录的用户
+        User loginUser = BOSUtils.getLoginUser();
+        String f = "1";
+        //调用service
+        try {
+            userService.editPassword(loginUser.getId(), model.getPassword());
+        } catch (Exception e) {
+            f = "0";
+            e.printStackTrace();
+        }
+        //写回数据
+        ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
+        ServletActionContext.getResponse().getWriter().print(f);
+        return NONE;
     }
 }
