@@ -29,5 +29,9 @@
         <action name="userAction_*" class="cn.probuing.bos.web.action.UserAction" method="{1}">
             <result name="home">/index.jsp</result>
         </action>
+        <!--取派员-->
+        <action name="staffAction_*" class="cn.probuing.bos.web.action.StaffAction" method="{1}">
+            <result name="list">/WEB-INF/pages/base/staff.jsp</result>
+        </action>
     </package>
 </struts>

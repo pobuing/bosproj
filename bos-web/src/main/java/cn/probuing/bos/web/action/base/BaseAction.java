@@ -13,6 +13,7 @@ import java.lang.reflect.Type;
  */
 public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
     protected static final String HOME = "home";
+    protected static final String LIST = "list";
 
     protected T model;
 
