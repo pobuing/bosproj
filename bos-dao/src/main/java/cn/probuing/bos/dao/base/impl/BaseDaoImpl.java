@@ -1,9 +1,12 @@
 package cn.probuing.bos.dao.base.impl;
 
 import cn.probuing.bos.dao.base.IBaseDao;
+import cn.probuing.bos.utils.PageBean;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import javax.annotation.Resource;
@@ -66,5 +69,24 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
         }
         //执行更新
         query.executeUpdate();
+    }
+
+    @Override
+    public void queryPage(PageBean pageBean) {
+        int currentPage = pageBean.getCurrentPage();
+        int pageSize = pageBean.getPageSize();
+        DetachedCriteria detachedCriteria = pageBean.getDetachedCriteria();
+        //查询数据量
+        detachedCriteria.setProjection(Projections.rowCount());
+        List<Long> countList = (List<Long>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+        Long count = countList.get(0);
+        pageBean.setTotal(count.intValue());
+        //查询数据
+        detachedCriteria.setProjection(null);
+        //计算页数
+        int first = (currentPage - 1) * pageSize;
+        int max = pageSize;
+        List rows = this.getHibernateTemplate().findByCriteria(detachedCriteria, first, max);
+        pageBean.setRows(rows);
     }
 }

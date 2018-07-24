@@ -1,5 +1,7 @@
 package cn.probuing.bos.dao.base;
 
+import cn.probuing.bos.utils.PageBean;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,5 +21,7 @@ public interface IBaseDao<T> {
 
     List<T> findAll();
 
-    public void executeUpdate(String queryName,Object...objects);
+    public void executeUpdate(String queryName, Object... objects);
+
+    public void queryPage(PageBean pageBean);
 }

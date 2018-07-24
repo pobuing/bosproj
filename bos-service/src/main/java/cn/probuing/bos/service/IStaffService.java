@@ -1,6 +1,7 @@
 package cn.probuing.bos.service;
 
 import cn.probuing.bos.domain.Staff;
+import cn.probuing.bos.utils.PageBean;
 
 /**
  * @Auther: wxblack-mac
@@ -9,4 +10,12 @@ import cn.probuing.bos.domain.Staff;
  */
 public interface IStaffService {
     void save(Staff model);
+
+    void pageQuery(PageBean pageBean);
+
+    void deleteBatch(String ids);
+
+    Staff findById(String id);
+
+    void update(Staff staff);
 }
