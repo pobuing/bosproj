@@ -24,4 +24,6 @@ public interface IBaseDao<T> {
     public void executeUpdate(String queryName, Object... objects);
 
     public void queryPage(PageBean pageBean);
+
+    void saveOrUpdate(T entiry);
 }

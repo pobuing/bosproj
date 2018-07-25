@@ -31,7 +31,13 @@
         </action>
         <!--取派员-->
         <action name="staffAction_*" class="cn.probuing.bos.web.action.StaffAction" method="{1}">
-            <result name="list">/WEB-INF/pages/base/staff.jsp</result>
+            <result name="toList" >
+                /WEB-INF/pages/base/staff.jsp
+            </result>
+        </action>
+        <!--区域-->
+        <action name="regionAction_*" class="cn.probuing.bos.web.action.RegionAction" method="{1}">
+            <result name="list">/WEB-INF/pages/base/region.jsp</result>
         </action>
     </package>
 </struts>
