@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Auther: wxblack-mac
@@ -32,5 +33,18 @@ public class RegionServiceImpl implements IRegionService {
     @Override
     public void pageQuery(PageBean pageBean) {
         iRegionDao.queryPage(pageBean);
+    }
+
+    @Override
+    public List<Region> findListByQ(String q) {
+
+        return iRegionDao.findListByQ(q);
+    }
+
+
+    @Override
+    public List<Region> findAll() {
+
+        return iRegionDao.findAll();
     }
 }
