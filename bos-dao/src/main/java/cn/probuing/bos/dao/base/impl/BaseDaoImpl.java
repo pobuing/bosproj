@@ -5,6 +5,7 @@ import cn.probuing.bos.utils.PageBean;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -83,6 +84,8 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
         pageBean.setTotal(count.intValue());
         //查询数据
         detachedCriteria.setProjection(null);
+        //设置封装对象方式
+        detachedCriteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
         //计算页数
         int first = (currentPage - 1) * pageSize;
         int max = pageSize;

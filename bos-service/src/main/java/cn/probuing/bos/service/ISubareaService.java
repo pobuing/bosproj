@@ -1,6 +1,7 @@
 package cn.probuing.bos.service;
 
 import cn.probuing.bos.domain.Subarea;
+import cn.probuing.bos.utils.PageBean;
 
 /**
  * @Auther: wxblack-mac
@@ -10,4 +11,6 @@ import cn.probuing.bos.domain.Subarea;
 public interface ISubareaService {
 
     void save(Subarea model);
+
+    void pageQuery(PageBean pageBean);
 }
