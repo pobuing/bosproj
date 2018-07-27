@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Auther: wxblack-mac
  * @Date: 2018/7/26 16:36
@@ -27,5 +29,10 @@ public class SubareaServiceImpl implements ISubareaService {
     @Override
     public void pageQuery(PageBean pageBean) {
         iSubareaDao.queryPage(pageBean);
+    }
+
+    @Override
+    public List<Subarea> findAll() {
+        return iSubareaDao.findAll();
     }
 }
