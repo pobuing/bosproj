@@ -1,6 +1,5 @@
 package cn.probuing.bos.web.action.base;
 
-import cn.probuing.bos.domain.Region;
 import cn.probuing.bos.utils.PageBean;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -70,7 +69,7 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
         return model;
     }
 
-    protected void java2Json(List<Region> list, String[] strings) {
+    protected void java2Json(List<T> list, String[] strings) {
         JsonConfig config = new JsonConfig();
         config.setExcludes(strings);
         String json = JSONArray.fromObject(list, config).toString();

@@ -4,9 +4,13 @@ import cn.probuing.bos.dao.IStaffDao;
 import cn.probuing.bos.domain.Staff;
 import cn.probuing.bos.service.IStaffService;
 import cn.probuing.bos.utils.PageBean;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @Auther: wxblack-mac
@@ -46,5 +50,12 @@ public class StaffServiceImpl implements IStaffService {
     @Override
     public void update(Staff staff) {
         staffDao.update(staff);
+    }
+
+    @Override
+    public List<Staff> findListNotDelete() {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Staff.class);
+        detachedCriteria.add(Restrictions.eq("deltag", "0"));
+        return staffDao.findByCriteria(detachedCriteria);
     }
 }

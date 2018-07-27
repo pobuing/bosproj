@@ -1,6 +1,7 @@
 package cn.probuing.bos.dao.base;
 
 import cn.probuing.bos.utils.PageBean;
+import org.hibernate.criterion.DetachedCriteria;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,4 +27,6 @@ public interface IBaseDao<T> {
     public void queryPage(PageBean pageBean);
 
     void saveOrUpdate(T entiry);
+
+    List<T> findByCriteria(DetachedCriteria detachedCriteria);
 }

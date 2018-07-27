@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Auther: wxblack-mac
@@ -75,5 +76,17 @@ public class StaffAction extends BaseAction<Staff> {
         staff.setStation(model.getStation());
         staffService.update(staff);
         return LIST;
+    }
+
+
+    /**
+     * 查询所有未删除的取派员 返回json
+     * @return
+     */
+    public String listajax(){
+        List<Staff> list =  staffService.findListNotDelete();
+        this.java2Json(list,new String[]{"decidedzones"});
+        return NONE;
+
     }
 }

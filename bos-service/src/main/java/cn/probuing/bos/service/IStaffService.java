@@ -3,6 +3,8 @@ package cn.probuing.bos.service;
 import cn.probuing.bos.domain.Staff;
 import cn.probuing.bos.utils.PageBean;
 
+import java.util.List;
+
 /**
  * @Auther: wxblack-mac
  * @Date: 2018/7/23 17:32
@@ -18,4 +20,6 @@ public interface IStaffService {
     Staff findById(String id);
 
     void update(Staff staff);
+
+    List<Staff> findListNotDelete();
 }
