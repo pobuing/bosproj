@@ -13,13 +13,5 @@
         <module name="bos-web" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="bos-dao" target="1.7" />
-      <module name="bos-domain" target="1.7" />
-      <module name="bos-service" target="1.7" />
-      <module name="bos-utils" target="1.7" />
-      <module name="bos-web" target="1.7" />
-      <module name="parent" target="1.7" />
-    </bytecodeTargetLevel>
   </component>
 </project>
