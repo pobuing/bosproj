@@ -72,7 +72,7 @@ public class SubareaAction extends BaseAction<Subarea> {
         }
         iSubareaService.pageQuery(pageBean);
         try {
-            this.java2json(pageBean, new String[]{"currentPage", "detachedCriteria", "pageSize", "decidedzone", "subareas"});
+            this.java2Json(pageBean, new String[]{"currentPage", "detachedCriteria", "pageSize", "decidedzone", "subareas"});
         } catch (IOException e) {
             e.printStackTrace();
         }

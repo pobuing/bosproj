@@ -75,7 +75,7 @@ public class RegionAction extends BaseAction<Region> {
     public String pageQuery() throws IOException {
 
         regionService.pageQuery(pageBean);
-        this.java2json(pageBean, new String[]{"currentPage", "detachedCriteria", "pageSize", "subareas"});
+        this.java2Json(pageBean, new String[]{"currentPage", "detachedCriteria", "pageSize", "subareas"});
         return NONE;
 
     }

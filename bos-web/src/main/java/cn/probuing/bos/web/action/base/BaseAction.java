@@ -47,7 +47,7 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
     }
 
 
-    protected void java2json(Object o, String[] exclude) throws IOException {
+    protected void java2Json(Object o, String[] exclude) throws IOException {
         JsonConfig config = new JsonConfig();
         config.setExcludes(exclude);
         String json = JSONObject.fromObject(o, config).toString();

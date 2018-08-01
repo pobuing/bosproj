@@ -125,7 +125,7 @@
                 pageList: [30, 50, 100],
                 pagination: true,
                 toolbar: toolbar,
-                url: "json/decidedzone.json",
+                url: "decidedzoneAction_pageQuery.action",
                 idField: 'id',
                 columns: columns,
                 onDblClickRow: doDblClickRow
@@ -272,11 +272,21 @@
     <div style="height:31px;overflow:hidden;" split="false" border="false">
         <div class="datagrid-toolbar">
             <a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
+            <script type="text/javascript">
+                $(function () {
+                    $("#save").click(function () {
+                        var v = $("#addDecidedzoneForm").form("validate");
+                        if (v) {
+                            $("#addDecidedzoneForm").submit();
+                        }
+                    })
+                })
+            </script>
         </div>
     </div>
 
     <div style="overflow:auto;padding:5px;" border="false">
-        <form>
+        <form action="decidedzoneAction_add.action" id="addDecidedzoneForm" method="post">
             <table class="table-edit" width="80%" align="center">
                 <tr class="title">
                     <td colspan="2">定区信息</td>
@@ -303,7 +313,7 @@
                                data-options="url:'subareaAction_listajax.action',fitColumns:true,singleSelect:false">
                             <thead>
                             <tr>
-                                <th data-options="field:'id',width:30,checkbox:true">编号</th>
+                                <th data-options="field:'subareaid',width:30,checkbox:true">编号</th>
                                 <th data-options="field:'addresskey',width:150">关键字</th>
                                 <th data-options="field:'position',width:200,align:'right'">位置</th>
                             </tr>

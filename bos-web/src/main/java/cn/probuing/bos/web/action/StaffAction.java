@@ -40,7 +40,7 @@ public class StaffAction extends BaseAction<Staff> {
      */
     public String pageQuery() throws IOException {
         staffService.pageQuery(pageBean);
-        this.java2json(pageBean, new String[]{"currentPage", "detachedCriteria", "pageSize"});
+        this.java2Json(pageBean, new String[]{"decidedzones", "currentPage", "detachedCriteria", "pageSize"});
         return NONE;
     }
 
@@ -81,11 +81,12 @@ public class StaffAction extends BaseAction<Staff> {
 
     /**
      * 查询所有未删除的取派员 返回json
+     *
      * @return
      */
-    public String listajax(){
-        List<Staff> list =  staffService.findListNotDelete();
-        this.java2Json(list,new String[]{"decidedzones"});
+    public String listajax() {
+        List<Staff> list = staffService.findListNotDelete();
+        this.java2Json(list, new String[]{"decidedzones"});
         return NONE;
 
     }

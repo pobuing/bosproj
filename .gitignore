@@ -35,7 +35,7 @@ buildNumber.properties
 .mvn/timing.properties
 *.iml
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
-!/.mvn/wrapper/maven-wrapper.jar
+/.mvn/wrapper/maven-wrapper.jar
 *.iml.idea/workspace.xml\
 .idea/dataSources.local.xml
 .idea/workspace.xml
