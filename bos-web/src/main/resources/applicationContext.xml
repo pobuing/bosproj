@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jaxws="http://cxf.apache.org/jaxws"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/context
@@ -10,7 +10,7 @@
 
 
 						http://www.springframework.org/schema/tx 
-						http://www.springframework.org/schema/tx/spring-tx.xsd">
+						http://www.springframework.org/schema/tx/spring-tx.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!--加载属性文件-->
     <context:property-placeholder location="classpath:db.properties"/>
     <!--数据源配置-->
@@ -47,4 +47,8 @@
     <!--支持spring注解-->
     <tx:annotation-driven/>
     <context:annotation-config/>
+    <!--配置cxf client-->
+    <jaxws:client id="crmClient" serviceClass="cn.probuing.client.ICustomerService"
+                  address="http://192.168.1.95:8080/boscrm/service/customer"
+    />
 </beans>
