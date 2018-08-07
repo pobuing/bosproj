@@ -44,7 +44,7 @@
             <result name="list">/WEB-INF/pages/base/subarea.jsp</result>
         </action>
         <!--定区-->
-        <action name="decidedzoneAction_*" class="decidedZoneAction" method="{1}">
+        <action name="decidedzoneAction_*" class="decidedzoneAction" method="{1}">
             <result name="list">/WEB-INF/pages/base/decidedzone.jsp</result>
         </action>
     </package>

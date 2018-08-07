@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>管理定区/调度排班</title>
+    <title>管理定区/调度排班123</title>
     <!-- 导入jquery核心类库 -->
     <script type="text/javascript"
             src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -36,7 +36,7 @@
         }
 
         function doDelete() {
-            alert("删除...");
+            alert("删除zz啊啊啊啊zxxx...");
         }
 
         function doSearch() {
@@ -44,7 +44,36 @@
         }
 
         function doAssociations() {
-            $('#customerWindow').window('open');
+            var rows = $("#grid").datagrid("getSelections");
+            if (rows.length != 1) {
+                $.messager.alert("提示信息", "请选择一个定区操作！", "warning");
+            } else {
+                $('#customerWindow').window('open');
+                //清理下拉框
+                $("#noassociationSelect").empty();
+                $("#associationSelect").empty();
+                var url_1 = "decidedzoneAction_findListNotAssociation.action";
+                $.post(url_1, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var id = data[i].id;
+                        var name = data[i].name;
+                        var telephone = data[i].telephone;
+                        name = name + "(" + telephone + ")";
+                        $("#noassociationSelect").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                });
+                var url_2 = "decidedzoneAction_findListHasAssociation.action";
+                var decidedzoneId = rows[0].id;
+                $.post(url_2, {"id", decidedzoneId}, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var id = data[i].id;
+                        var name = data[i].name;
+                        var telephone = data[i].telephone;
+                        name = name + "(" + telephone + ")";
+                        $("#associationSelect").append("<option value='" + id + "'>" + name + "</option>")
+                    }
+                });
+            }
         }
 
         //工具栏
@@ -370,6 +399,24 @@
                     <td>
                         <input type="button" value="》》" id="toRight"><br/>
                         <input type="button" value="《《" id="toLeft">
+                        <script type="text/javascript">
+                            $(function () {
+                                $("#toRight").click(function () {
+                                    $("#associationSelect").append($("#noassociationSelect option:selected"));
+                                });
+                                $("#toLeft").click(function () {
+                                    $("#noassociationSelect").append($("#associationSelect option:selected"));
+                                });
+                                $("#associationBtn").click(function () {
+                                    var rows = $("#grid").datagrid("getSelections");
+                                    var id = rows[0].id;
+                                    $("input[name=id]").val(id);
+                                    //提交表单前，将右侧下拉框中所有的选项选中
+                                    $("#associationSelect option").attr("selected","selected");
+                                    $("#customerForm").submit();
+                                })
+                            })
+                        </script>
                     </td>
                     <td>
                         <select id="associationSelect" name="customerIds" multiple="multiple" size="10"></select>
