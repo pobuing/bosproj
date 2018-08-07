@@ -30,12 +30,12 @@ import java.util.List;
 public class SubareaAction extends BaseAction<Subarea> {
     @Autowired
     private ISubareaService iSubareaService;
+    private String decidedzoneId;
 
     public String add() {
         iSubareaService.save(model);
         return LIST;
     }
-
 
     /**
      * 待条件查询
@@ -78,7 +78,6 @@ public class SubareaAction extends BaseAction<Subarea> {
         }
         return NONE;
     }
-
 
     /**
      * 导出功能
@@ -142,6 +141,21 @@ public class SubareaAction extends BaseAction<Subarea> {
     public String listajax() {
         List<Subarea> list = iSubareaService.findListNotAssociation();
         this.java2Json(list, new String[]{"decidedzone", "region"});
+        return NONE;
+    }
+
+    public void setDecidedzoneId(String decidedzoneId) {
+        this.decidedzoneId = decidedzoneId;
+    }
+
+    /**
+     * 根据定区id查询分区
+     *
+     * @return NONE
+     */
+    public String findListByDecidedzoneId() {
+        List<Subarea> list = iSubareaService.findListByDecidedzoneId(decidedzoneId);
+        this.java2Json(list, new String[]{"decidedzone", "subareas"});
         return NONE;
     }
 }

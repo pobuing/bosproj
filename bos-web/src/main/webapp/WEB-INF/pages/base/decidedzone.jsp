@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>管理定区/调度排班123</title>
+    <title>管理定区/调度排班</title>
     <!-- 导入jquery核心类库 -->
     <script type="text/javascript"
             src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -64,7 +64,7 @@
                 });
                 var url_2 = "decidedzoneAction_findListHasAssociation.action";
                 var decidedzoneId = rows[0].id;
-                $.post(url_2, {"id", decidedzoneId}, function (data) {
+                $.post(url_2, {"id": decidedzoneId}, function (data) {
                     for (var i = 0; i < data.length; i++) {
                         var id = data[i].id;
                         var name = data[i].name;
@@ -187,14 +187,13 @@
 
         });
 
-        function doDblClickRow() {
-            alert("双击表格数据...");
+        function doDblClickRow(index, data) {
             $('#association_subarea').datagrid({
                 fit: true,
                 border: true,
                 rownumbers: true,
                 striped: true,
-                url: "json/association_subarea.json",
+                url: "subareaAction_findListByDecidedzoneId.action?decidedzoneId=" + data.id,
                 columns: [[{
                     field: 'id',
                     title: '分拣编号',
@@ -256,7 +255,7 @@
                 border: true,
                 rownumbers: true,
                 striped: true,
-                url: "json/association_customer.json",
+                url: "decidedzoneAction_findListHasAssociation.action?id=" + data.id,
                 columns: [[{
                     field: 'id',
                     title: '客户编号',
@@ -385,7 +384,7 @@
      maximizable="false" style="top:20px;left:200px;width: 400px;height: 300px;">
     <div style="overflow:auto;padding:5px;" border="false">
         <form id="customerForm"
-              action="${pageContext.request.contextPath }/decidedzone_assigncustomerstodecidedzone.action"
+              action="${pageContext.request.contextPath }/decidedzoneAction_assigncustomerstodecidedzone.action"
               method="post">
             <table class="table-edit" width="80%" align="center">
                 <tr class="title">
@@ -412,7 +411,7 @@
                                     var id = rows[0].id;
                                     $("input[name=id]").val(id);
                                     //提交表单前，将右侧下拉框中所有的选项选中
-                                    $("#associationSelect option").attr("selected","selected");
+                                    $("#associationSelect option").attr("selected", "selected");
                                     $("#customerForm").submit();
                                 })
                             })

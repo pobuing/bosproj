@@ -47,7 +47,7 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
     }
 
 
-    protected void java2Json(Object o, String[] exclude) throws IOException {
+    public void java2Json(Object o, String[] exclude) throws IOException {
         JsonConfig config = new JsonConfig();
         config.setExcludes(exclude);
         String json = JSONObject.fromObject(o, config).toString();
@@ -69,9 +69,9 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
         return model;
     }
 
-    protected void java2Json(List<T> list, String[] strings) {
+    public void java2Json(List list, String[] exclude) {
         JsonConfig config = new JsonConfig();
-        config.setExcludes(strings);
+        config.setExcludes(exclude);
         String json = JSONArray.fromObject(list, config).toString();
         ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
         try {

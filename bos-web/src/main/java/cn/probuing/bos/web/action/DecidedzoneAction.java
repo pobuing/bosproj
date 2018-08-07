@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +30,8 @@ public class DecidedzoneAction extends BaseAction<Decidedzone> {
     //注入代理对象
     @Autowired
     private ICustomerService proxy;
+    //属性驱动 接收传递的客户id
+    private List<Integer> customerIds;
 
     public void setSubareaid(String[] subareaid) {
         this.subareaid = subareaid;
@@ -52,6 +55,9 @@ public class DecidedzoneAction extends BaseAction<Decidedzone> {
      */
     public String findListNotAssociation() throws IOException {
         List<Customer> list = proxy.findListNotAssociation();
+        if (list == null) {
+            list = new ArrayList<>();
+        }
         this.java2Json(list, new String[]{});
         return NONE;
     }
@@ -64,7 +70,24 @@ public class DecidedzoneAction extends BaseAction<Decidedzone> {
     public String findListHasAssociation() throws IOException {
         String id = model.getId();
         List<Customer> list = proxy.findListHasAssociation(id);
+        if (list == null) {
+            list = new ArrayList<>();
+        }
         this.java2Json(list, new String[]{});
         return NONE;
+    }
+
+    public void setCustomerIds(List<Integer> customerIds) {
+        this.customerIds = customerIds;
+    }
+
+    /**
+     * 关联客户到定区
+     *
+     * @return LIST
+     */
+    public String assigncustomerstodecidedzone() {
+        proxy.assigncustomerstodecidedzone(model.getId(), customerIds);
+        return LIST;
     }
 }
