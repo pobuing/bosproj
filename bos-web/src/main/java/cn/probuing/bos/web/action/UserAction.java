@@ -3,10 +3,14 @@ package cn.probuing.bos.web.action;
 import cn.probuing.bos.domain.User;
 import cn.probuing.bos.service.IUserService;
 import cn.probuing.bos.utils.BOSUtils;
+import cn.probuing.bos.utils.MD5Utils;
 import cn.probuing.bos.web.action.base.BaseAction;
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -40,15 +44,19 @@ public class UserAction extends BaseAction<User> {
         logger.info(validateCode + "----" + checkcode + model.toString());
 
         if (StringUtils.isNotBlank(checkcode) && checkcode.equals(validateCode)) {
-            //正确
-            User user = userService.login(model);
-            if (user != null) {
-                ActionContext.getContext().getSession().put("loginUser", user);
-                return HOME;
-            } else {
+            //使用shiro框架提供的方式进行认证
+            Subject subject = SecurityUtils.getSubject();
+            UsernamePasswordToken token = new UsernamePasswordToken(model.getUsername(), MD5Utils.md5(model.getPassword()));
+            try {
+                subject.login(token);
+            } catch (Exception e) {
                 this.addActionError("用户名或密码输入错误");
+                e.printStackTrace();
                 return LOGIN;
             }
+            User user = (User) subject.getPrincipal();
+            ActionContext.getContext().getSession().put("loginUser", user);
+            return HOME;
         } else {
             //错误
             this.addActionError("输入的验证码错误");

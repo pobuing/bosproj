@@ -11,4 +11,6 @@ import cn.probuing.bos.domain.User;
 public interface IUserDao extends IBaseDao<User> {
 
     User findUserByUserNameAndPassword(String username, String password);
+
+    User findUserByUserName(String username);
 }
