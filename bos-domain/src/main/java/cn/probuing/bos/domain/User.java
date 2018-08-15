@@ -1,5 +1,6 @@
 package cn.probuing.bos.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,25 @@ public class User implements java.io.Serializable {
 	private String telephone;
 	private String remark;
 	private Set noticebills = new HashSet(0);
-	private Set roles = new HashSet(0);
+	private Set<Role> roles = new HashSet(0);
+
+	public String getRoleNames(){
+		String roleNames = "";
+		for(Role role : roles){
+			String name = role.getName();
+			roleNames += name + " ";
+		}
+		return roleNames;
+	}
+
+	public String getBirthdayString(){
+		if(birthday != null){
+			String format = new SimpleDateFormat("yyyy-MM-dd").format(birthday);
+			return format;
+		}else{
+			return "暂无数据";
+		}
+	}
 
 	// Constructors
 
@@ -37,8 +56,8 @@ public class User implements java.io.Serializable {
 
 	/** full constructor */
 	public User(String id, String username, String password, Double salary,
-			Date birthday, String gender, String station, String telephone,
-			String remark, Set noticebills, Set roles) {
+				Date birthday, String gender, String station, String telephone,
+				String remark, Set noticebills, Set roles) {
 		this.id = id;
 		this.username = username;
 		this.password = password;

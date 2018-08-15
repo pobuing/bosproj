@@ -1,6 +1,7 @@
 package cn.probuing.bos.service;
 
 import cn.probuing.bos.domain.User;
+import cn.probuing.bos.utils.PageBean;
 
 /**
  * @Auther: wxblack-mac
@@ -18,4 +19,7 @@ public interface IUserService {
      */
     void editPassword(String id, String password);
 
+    void save(User model, String[] roleIds);
+
+    void pageQuery(PageBean pageBean);
 }

@@ -95,4 +95,24 @@ public class UserAction extends BaseAction<User> {
         ServletActionContext.getResponse().getWriter().print(f);
         return NONE;
     }
+
+    //属性驱动 接收多个角色id
+    private String[] roleIds;
+
+    public void setRoleIds(String[] roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public String add(){
+        userService.save(model,roleIds);
+        return LIST;
+    }
+
+    public String pageQuery() throws IOException {
+        userService.pageQuery(pageBean);
+        this.java2Json(pageBean,new String[]{"noticebills","roles"});
+
+        return NONE;
+    }
+
 }
